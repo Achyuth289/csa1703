@@ -1,0 +1,49 @@
+from collections import deque
+print("achyuth naidu_19237225")
+# Function to print the path
+def print_solution(path):
+    for step, state in enumerate(path):
+        print(f"Step {step}: Jug A = {state[0]}L, Jug B = {state[1]}L")
+    print()
+
+# BFS algorithm to solve the water jug problem
+def water_jug_problem(a_capacity, b_capacity, goal):
+    visited = set()
+    queue = deque()
+    
+    # Initial state: both jugs are empty
+    queue.append((0, 0, []))  # (jug A, jug B, path)
+
+    while queue:
+        a, b, path = queue.popleft()
+
+        # If we reach the goal
+        if a == goal or b == goal:
+            print_solution(path + [(a, b)])
+            return
+
+        # If already visited, skip
+        if (a, b) in visited:
+            continue
+        visited.add((a, b))
+
+        # Possible next states
+        next_states = [
+            (a_capacity, b),  # Fill Jug A
+            (a, b_capacity),  # Fill Jug B
+            (0, b),           # Empty Jug A
+            (a, 0),           # Empty Jug B
+            # Pour A -> B
+            (a - min(a, b_capacity - b), b + min(a, b_capacity - b)),
+            # Pour B -> A
+            (a + min(b, a_capacity - a), b - min(b, a_capacity - a)),
+        ]
+
+        for state in next_states:
+            if state not in visited:
+                queue.append((state[0], state[1], path + [(a, b)]))
+
+    print("No solution found.")
+
+# Example: Jug A = 4L, Jug B = 3L, Goal = 2L
+water_jug_problem(4, 3, 2)
