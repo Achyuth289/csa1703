@@ -1,0 +1,66 @@
+from collections import deque
+
+def is_valid(state):
+    m_left, c_left, boat = state
+    m_right = 3 - m_left
+    c_right = 3 - c_left
+
+    # Check for negative numbers
+    if m_left < 0 or c_left < 0 or m_right < 0 or c_right < 0:
+        return False
+
+    # Check missionaries not outnumbered on either side
+    if (m_left > 0 and m_left < c_left) or (m_right > 0 and m_right < c_right):
+        return False
+
+    return True
+
+def get_successors(state):
+    m_left, c_left, boat = state
+    moves = []
+    # Possible moves: (missionaries, cannibals)
+    for m in range(3):
+        for c in range(3):
+            if 1 <= m + c <= 2:  # boat must carry 1 or 2 people
+                if boat == 1:  # boat on left bank
+                    new_state = (m_left - m, c_left - c, 0)
+                else:  # boat on right bank
+                    new_state = (m_left + m, c_left + c, 1)
+                if is_valid(new_state):
+                    moves.append(new_state)
+    return moves
+
+def bfs(start, goal):
+    queue = deque()
+    queue.append((start, [start]))
+    visited = set()
+    visited.add(start)
+
+    while queue:
+        state, path = queue.popleft()
+        if state == goal:
+            return path
+
+        for succ in get_successors(state):
+            if succ not in visited:
+                visited.add(succ)
+                queue.append((succ, path + [succ]))
+    return None
+
+def print_solution(path):
+    for step in path:
+        m_left, c_left, boat = step
+        m_right = 3 - m_left
+        c_right = 3 - c_left
+        boat_side = "left" if boat == 1 else "right"
+        print(f"Left Bank: M={m_left} C={c_left} | Right Bank: M={m_right} C={c_right} | Boat: {boat_side}")
+
+start = (3, 3, 1)  # all on left bank with boat
+goal = (0, 0, 0)   # all on right bank
+
+solution = bfs(start, goal)
+if solution:
+    print("Solution found!\n")
+    print_solution(solution)
+else:
+    print("No solution.")
