@@ -1,0 +1,44 @@
+def vacuum_cleaner_agent(location, status):
+    if status == 'Dirty':
+        return 'Suck'
+    elif location == 'A':
+        return 'Move Right'
+    else:
+        return 'Move Left'
+
+# Test the agent in all situations
+def run_vacuum_world():
+    # Possible states: (Location, Status of A, Status of B)
+    states = [
+        ('A', 'Dirty', 'Dirty'),
+        ('A', 'Dirty', 'Clean'),
+        ('A', 'Clean', 'Dirty'),
+        ('A', 'Clean', 'Clean'),
+        ('B', 'Dirty', 'Dirty'),
+        ('B', 'Dirty', 'Clean'),
+        ('B', 'Clean', 'Dirty'),
+        ('B', 'Clean', 'Clean'),
+    ]
+
+    for state in states:
+        location, status_A, status_B = state
+        print(f"\nInitial State: Vacuum at {location}, Room A: {status_A}, Room B: {status_B}")
+        
+        # Simulate 2 steps
+        for step in range(2):
+            status = status_A if location == 'A' else status_B
+            action = vacuum_cleaner_agent(location, status)
+            print(f"Step {step+1}: Vacuum at {location}, Status: {status} -> Action: {action}")
+            
+            # Update environment
+            if action == 'Suck':
+                if location == 'A':
+                    status_A = 'Clean'
+                else:
+                    status_B = 'Clean'
+            elif action == 'Move Right':
+                location = 'B'
+            elif action == 'Move Left':
+                location = 'A'
+
+run_vacuum_world()
