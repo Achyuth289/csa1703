@@ -1,0 +1,37 @@
+# Adjacency map
+adjacency = {
+    'A': ['B', 'C'],
+    'B': ['A', 'C', 'D'],
+    'C': ['A', 'B', 'D'],
+    'D': ['B', 'C']
+}
+
+# Colors to use
+colors = ['Red', 'Green', 'Blue']
+
+def is_valid(node, color, assignment):
+    for neighbor in adjacency[node]:
+        if neighbor in assignment and assignment[neighbor] == color:
+            return False
+    return True
+
+def map_coloring(assignment):
+    # If all nodes are assigned, we're done
+    if len(assignment) == len(adjacency):
+        return assignment
+
+    # Select an unassigned node
+    unassigned = [node for node in adjacency if node not in assignment][0]
+
+    for color in colors:
+        if is_valid(unassigned, color, assignment):
+            assignment[unassigned] = color
+            result = map_coloring(assignment)
+            if result:
+                return result
+            del assignment[unassigned]  # backtrack
+    return None  # no solution
+
+# Start coloring
+solution = map_coloring({})
+print("Solution:", solution)
