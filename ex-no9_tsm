@@ -1,0 +1,40 @@
+import itertools
+
+# Distance matrix: graph[i][j] is distance from city i to city j
+graph = [
+    [0, 10, 15, 20],
+    [10, 0, 35, 25],
+    [15, 35, 0, 30],
+    [20, 25, 30, 0]
+]
+
+# Number of cities
+n = len(graph)
+cities = range(n)
+
+# Initialize min path cost
+min_cost = float('inf')
+best_path = []
+
+# Try all permutations of cities except starting city 0
+for perm in itertools.permutations(cities[1:]):
+    current_cost = 0
+    k = 0  # start at city 0
+    path = [0]
+    
+    for j in perm:
+        current_cost += graph[k][j]
+        k = j
+        path.append(j)
+    
+    # Add cost to return to starting city
+    current_cost += graph[k][0]
+    path.append(0)
+    
+    # Update minimum
+    if current_cost < min_cost:
+        min_cost = current_cost
+        best_path = path
+
+print(f"Minimum cost: {min_cost}")
+print(f"Best path: {best_path}")
