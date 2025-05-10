@@ -1,0 +1,38 @@
+% Facts: planet(Name, DistanceFromSun (in million km), HasRings)
+planet('Mercury', 58, no).
+planet('Venus', 108, no).
+planet('Earth', 150, no).
+planet('Mars', 228, no).
+planet('Jupiter', 778, yes).
+planet('Saturn', 1427, yes).
+planet('Uranus', 2871, yes).
+planet('Neptune', 4495, yes).
+
+% Rule: Print student ID only once
+print_achyuth_id :-
+    format('Achyuth 1923372257~n').
+
+% Rule: Find planets with rings
+planet_with_rings :-
+    print_achyuth_id,  % Print once at start
+    planet(Name, _, yes),
+    format('~w has rings.~n', [Name]),
+    fail.  % Force backtracking to print all
+planet_with_rings.  % Success after all
+
+% Rule: Find planets closer to the Sun than a given distance
+planet_closer_than(Distance) :-
+    print_achyuth_id,  % Print once at start
+    planet(Name, D, _),
+    D < Distance,
+    format('~w is ~d million km from the Sun.~n', [Name, D]),
+    fail.
+planet_closer_than(_).
+
+% Rule: Print all planets
+list_all_planets :-
+    print_achyuth_id,  % Print once at start
+    planet(Name, Distance, Rings),
+    format('Planet: ~w, Distance: ~d million km, Rings: ~w~n', [Name, Distance, Rings]),
+    fail.
+list_all_planets.
