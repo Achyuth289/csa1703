@@ -1,0 +1,31 @@
+% Print the name and ID at the beginning
+print_achyuth_id :-
+    format('Achyuth 192372257~n').
+
+% Main diagnosis predicate
+% Takes a list of symptoms and returns a possible diagnosis
+diagnose(Symptoms, Diagnosis) :-
+    print_achyuth_id,  % Print ID at the beginning
+    check_disease(Symptoms, Diagnosis).
+
+% Rule to check symptoms and map to diseases
+check_disease([fever, cough, tiredness], flu) :-
+    write('Diagnosis: Flu'), nl.
+check_disease([fever, sore_throat, cough], cold) :-
+    write('Diagnosis: Common Cold'), nl.
+check_disease([fever, headache, nausea], migraine) :-
+    write('Diagnosis: Migraine'), nl.
+check_disease([chest_pain, shortness_of_breath, dizziness], heart_attack) :-
+    write('Diagnosis: Heart Attack'), nl.
+check_disease([fatigue, joint_pain, rash], lupus) :-
+    write('Diagnosis: Lupus'), nl.
+check_disease([headache, stiff_neck, sensitivity_to_light], meningitis) :-
+    write('Diagnosis: Meningitis'), nl.
+check_disease([cough, shortness_of_breath, fatigue], pneumonia) :-
+    write('Diagnosis: Pneumonia'), nl.
+check_disease([sore_throat, difficulty_swallowing], tonsillitis) :-
+    write('Diagnosis: Tonsillitis'), nl.
+
+% If no disease matches the symptoms
+check_disease(Symptoms, unknown) :-
+    write('Diagnosis: Unknown. Please consult a doctor for further tests.'), nl.
