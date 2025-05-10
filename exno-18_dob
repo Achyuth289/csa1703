@@ -1,0 +1,12 @@
+% Facts: name and date of birth (format: dob(Year, Month, Day))
+
+person('Achyuth', dob(2000, 5, 10)).
+person('Anjali', dob(1998, 12, 23)).
+person('Rahul', dob(1995, 7, 15)).
+person('Sneha', dob(2001, 1, 30)).
+person('Vikram', dob(1999, 3, 8)).
+
+% Rule: Find DOB by name
+find_dob(Name, Year, Month, Day) :-
+    person(Name, dob(Year, Month, Day)),
+    format('~w was born on ~d-~d-~d.~n', [Name, Year, Month, Day]).
