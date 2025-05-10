@@ -1,0 +1,27 @@
+% Facts: student(Name, SubjectCode)
+student('Achyuth', 'CS101').
+student('Anjali', 'CS102').
+student('Rahul', 'CS101').
+student('Sneha', 'CS103').
+student('Vikram', 'CS102').
+
+% Facts: teacher(Name, SubjectCode)
+teacher('Dr. Sharma', 'CS101').
+teacher('Prof. Mehta', 'CS102').
+teacher('Dr. Rao', 'CS103').
+
+% Rule: Find the teacher of a student
+find_teacher(StudentName, TeacherName) :-
+    student(StudentName, SubCode),
+    teacher(TeacherName, SubCode),
+    format('~w is taught by ~w.~n', [StudentName, TeacherName]),
+    print_achyuth_id.  % Call the print statement here
+
+% Rule: Find all students taught by a specific teacher
+students_of_teacher(TeacherName, StudentName) :-
+    teacher(TeacherName, SubCode),
+    student(StudentName, SubCode).
+
+% Custom print rule
+print_achyuth_id :-
+    format('Achyuth 192372257~n').
