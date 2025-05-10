@@ -1,0 +1,32 @@
+% Print the name and ID at the beginning
+print_achyuth_id :-
+    format('Achyuth 192372257~n').
+
+% Facts:
+% monkey_on_ground(Monkey) states that the monkey is on the ground
+monkey_on_ground(monkey).
+% box_at_location(Location) states that the box is at a given location
+box_at_location(ground).
+
+% Rules:
+
+% The monkey can push the box if the box is at ground level
+can_push_box(monkey) :-
+    box_at_location(ground).
+
+% The monkey can use the box to climb if it's at the ground
+monkey_climbs_to_banana :-
+    print_achyuth_id,  % Print ID at the beginning
+    monkey_on_ground(monkey),
+    box_at_location(ground),
+    can_push_box(monkey),
+    format('Monkey pushes the box to the shelf.~n'),
+    format('Monkey climbs on the box and grabs the banana.~n').
+
+% Alternative rule: the monkey could just grab the banana if it’s already on the shelf (without moving the box)
+grab_banana :-
+    print_achyuth_id,  % Print ID at the beginning
+    monkey_on_ground(monkey),
+    format('Monkey tries to grab the banana from the shelf, but cannot reach it.~n'),
+    format('The monkey needs to move the box to the shelf to reach the banana.~n').
+
