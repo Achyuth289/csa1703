@@ -1,0 +1,17 @@
+% Print the name and ID at the beginning
+print_achyuth_id :-
+    format('Achyuth 192372257~n').
+
+% Facts: disease(Disease, DietRecommendation)
+disease('Diabetes', 'Low Sugar, High Fiber').
+disease('Hypertension', 'Low Salt, High Potassium').
+disease('Obesity', 'Low Calorie, High Protein').
+disease('Anemia', 'Iron-Rich Foods, Vitamin B12').
+disease('Cholesterol', 'Low Fat, High Fiber').
+
+% Rule to suggest diet based on disease
+suggest_diet(Disease) :-
+    print_achyuth_id,  % Print ID at the beginning
+    disease(Disease, Diet),
+    format('For ~w, the recommended diet is: ~w.~n', [Disease, Diet]).
+
