@@ -1,0 +1,17 @@
+% Print the name and ID at the beginning
+print_achyuth_id :-
+    format('Achyuth 192372257~n').
+
+% Facts: fruit(FruitName, Color)
+fruit('Apple', 'Red').
+fruit('Banana', 'Yellow').
+fruit('Orange', 'Orange').
+fruit('Grapes', 'Purple').
+fruit('Lemon', 'Yellow').
+fruit('Strawberry', 'Red').
+fruit('Blueberry', 'Blue').
+
+% Rule: Find the color of a given fruit using backtracking
+find_fruit_color(Fruit, Color) :-
+    print_achyuth_id,  % Print ID at the beginning
+    fruit(Fruit, Color).
