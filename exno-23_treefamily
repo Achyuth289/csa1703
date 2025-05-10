@@ -1,0 +1,37 @@
+% Print the name and ID at the beginning
+print_achyuth_id :-
+    format('Achyuth 192372257~n').
+
+% Facts: parent(Parent, Child)
+parent('John', 'Alex').
+parent('John', 'Emma').
+parent('Alice', 'Alex').
+parent('Alice', 'Emma').
+parent('Alex', 'Sam').
+parent('Emma', 'Sophia').
+parent('Sam', 'Leo').
+
+% Rule: Define a sibling relationship (two children with the same parents)
+sibling(X, Y) :-
+    parent(P, X),
+    parent(P, Y),
+    X \= Y.
+
+% Rule: Define a grandparent relationship (parent of your parent)
+grandparent(GP, Grandchild) :-
+    parent(P, Grandchild),
+    parent(GP, P).
+
+% Rule: Define an ancestor relationship (any direct ancestor)
+ancestor(Ancestor, Descendant) :-
+    parent(Ancestor, Descendant).
+ancestor(Ancestor, Descendant) :-
+    parent(Parent, Descendant),
+    ancestor(Ancestor, Parent).
+
+% Rule: Define a descendant relationship (direct descendants)
+descendant(Descendant, Ancestor) :-
+    parent(Ancestor, Descendant).
+descendant(Descendant, Ancestor) :-
+    parent(Parent, Descendant),
+    descendant(Parent, Ancestor).
