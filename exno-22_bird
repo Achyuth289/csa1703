@@ -1,0 +1,22 @@
+% Print the name and ID at the beginning
+print_achyuth_id :-
+    format('Achyuth 192372257~n').
+
+% Facts: bird(Name, CanFly)
+bird('Sparrow', yes).
+bird('Eagle', yes).
+bird('Penguin', no).
+bird('Ostrich', no).
+bird('Parrot', yes).
+bird('Penguin', no).
+
+% Rule: Check if a bird can fly
+can_fly(Name) :-
+    print_achyuth_id,  % Print ID at the beginning
+    bird(Name, yes),
+    format('~w can fly.~n', [Name]).
+
+can_fly(Name) :-
+    print_achyuth_id,  % Print ID at the beginning
+    bird(Name, no),
+    format('~w cannot fly.~n', [Name]).
