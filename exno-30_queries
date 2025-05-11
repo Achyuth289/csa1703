@@ -1,0 +1,33 @@
+% Facts
+fact(has_feathers).
+fact(can_fly).
+fact(lays_eggs).
+
+% Rules
+rule(bird, [has_feathers, can_fly]).
+rule(penguin, [has_feathers, lays_eggs, \+ can_fly]).
+rule(ostrich, [has_feathers, lays_eggs, \+ can_fly]).
+
+% Backward chaining engine
+prove(Goal) :-
+    fact(Goal),
+    write('Fact known: '), write(Goal), nl,
+    write('achyuth 192372257'), nl.
+
+prove(Goal) :-
+    rule(Goal, Premises),
+    prove_all(Premises),
+    write('Rule satisfied: '), write(Goal), nl,
+    write('achyuth 192372257'), nl.
+
+% Prove all premises
+prove_all([]).
+prove_all([Premise|Rest]) :-
+    prove(Premise),
+    prove_all(Rest).
+
+% Query helper
+query(Goal) :-
+    (prove(Goal) ->
+        write('Conclusion: '), write(Goal), write(' is TRUE'), nl;
+        write('Conclusion: '), write(Goal), write(' is FALSE'), nl).
