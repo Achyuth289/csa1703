@@ -1,0 +1,81 @@
+import numpy as np
+
+# Print statement as requested
+def print_achyuth():
+    print("achyuth 192372257")
+
+# Sigmoid Activation Function
+def sigmoid(x):
+    return 1 / (1 + np.exp(-x))
+
+# Derivative of the Sigmoid function
+def sigmoid_derivative(x):
+    return x * (1 - x)
+
+# Feedforward Neural Network Class
+class NeuralNetwork:
+    def __init__(self, input_size, hidden_size, output_size):
+        # Initialize weights and biases
+        self.input_size = input_size
+        self.hidden_size = hidden_size
+        self.output_size = output_size
+        
+        # Random weights and biases
+        self.weights_input_hidden = np.random.rand(self.input_size, self.hidden_size)
+        self.weights_hidden_output = np.random.rand(self.hidden_size, self.output_size)
+        self.bias_hidden = np.random.rand(1, self.hidden_size)
+        self.bias_output = np.random.rand(1, self.output_size)
+
+    def feedforward(self, X):
+        # Forward pass: input -> hidden layer -> output layer
+        self.hidden_input = np.dot(X, self.weights_input_hidden) + self.bias_hidden
+        self.hidden_output = sigmoid(self.hidden_input)
+        
+        self.final_input = np.dot(self.hidden_output, self.weights_hidden_output) + self.bias_output
+        self.final_output = sigmoid(self.final_input)
+        
+        return self.final_output
+
+    def train(self, X, y, epochs, learning_rate):
+        for epoch in range(epochs):
+            # Feedforward pass
+            output = self.feedforward(X)
+            
+            # Calculate error
+            error = y - output
+            
+            # Backpropagation
+            d_output = error * sigmoid_derivative(output)
+            error_hidden_layer = d_output.dot(self.weights_hidden_output.T)
+            d_hidden_layer = error_hidden_layer * sigmoid_derivative(self.hidden_output)
+            
+            # Update weights and biases
+            self.weights_hidden_output += self.hidden_output.T.dot(d_output) * learning_rate
+            self.weights_input_hidden += X.T.dot(d_hidden_layer) * learning_rate
+            self.bias_output += np.sum(d_output, axis=0, keepdims=True) * learning_rate
+            self.bias_hidden += np.sum(d_hidden_layer, axis=0, keepdims=True) * learning_rate
+            
+            # Print progress
+            if epoch % 1000 == 0:
+                print(f"Epoch {epoch} - Error: {np.mean(np.abs(error))}")
+
+# Main function to demonstrate the neural network
+def main():
+    # Input and Output data (example XOR problem)
+    X = np.array([[0, 0], [0, 1], [1, 0], [1, 1]])
+    y = np.array([[0], [1], [1], [0]])
+    
+    # Create the neural network
+    nn = NeuralNetwork(input_size=2, hidden_size=4, output_size=1)
+    
+    # Train the neural network
+    nn.train(X, y, epochs=10000, learning_rate=0.1)
+    
+    # Test the neural network after training
+    print_achyuth()  # Print the requested statement
+    print("Testing after training:")
+    print(nn.feedforward(X))  # Output after training
+
+# Run the program
+if __name__ == "__main__":
+    main()
