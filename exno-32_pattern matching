@@ -1,0 +1,21 @@
+% Pattern matching program
+
+% Main entry point with print statement
+start :-
+    write('achyuth 192372257'), nl,
+    write('Pattern Matching in Prolog'), nl,
+    write('--------------------------------'), nl.
+
+% Pattern matching rules
+match_pattern([H|_], H) :-
+    write('Pattern matched with head: '), write(H), nl.
+
+match_pattern([_|T], X) :-
+    match_pattern(T, X).
+
+% Query helper
+query_match(List, Element) :-
+    start,
+    (match_pattern(List, Element) ->
+        write('Element '), write(Element), write(' is found in the list.'), nl;
+        write('Element '), write(Element), write(' is NOT found in the list.'), nl).
