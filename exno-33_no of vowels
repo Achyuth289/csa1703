@@ -1,0 +1,31 @@
+% Main entry point
+start :-
+    write('achyuth 192372257'), nl,
+    write('Vowel Counting Program in Prolog'), nl,
+    write('-----------------------------------'), nl.
+
+% Check if a character is a vowel
+is_vowel(a).
+is_vowel(e).
+is_vowel(i).
+is_vowel(o).
+is_vowel(u).
+
+is_vowel(A) :- char_code(A, Code), char_code('A', ACode), char_code('Z', ZCode),
+               Code >= ACode, Code =< ZCode, atom_string(A, S), string_lower(S, LS), is_vowel(LS).
+
+% Count vowels in a list
+count_vowels([], 0).
+count_vowels([H|T], Count) :-
+    is_vowel(H),
+    count_vowels(T, RestCount),
+    Count is RestCount + 1.
+
+count_vowels([_|T], Count) :-
+    count_vowels(T, Count).
+
+% Query helper
+query_count(List) :-
+    start,
+    count_vowels(List, Count),
+    write('Number of vowels: '), write(Count), nl.
