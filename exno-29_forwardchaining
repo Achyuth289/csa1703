@@ -1,0 +1,21 @@
+% Facts
+fact(a).
+fact(b).
+
+% Rules (Inference)
+rule(c) :- fact(a), fact(b), assertz(fact(c)), write('Inferred fact: c'), nl.
+rule(d) :- fact(c), assertz(fact(d)), write('Inferred fact: d'), nl.
+rule(e) :- fact(d), assertz(fact(e)), write('Inferred fact: e'), nl.
+
+% Forward chaining driver
+forward_chain :-
+    rule(c),
+    rule(d),
+    rule(e),
+    write('achyuth 192372257'), nl.
+
+% Query to check if a fact exists
+check(Fact) :-
+    (fact(Fact) -> 
+        write(Fact), write(' is true.'), nl;
+        write(Fact), write(' is not known.'), nl).
