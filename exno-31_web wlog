@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Demo of Anchor and Title Tags</title>
+</head>
+<body>
+
+    <h1>Welcome to My Demo Blog</h1>
+
+    <!-- Anchor Tag -->
+    <p>Click here to visit <a href="https://www.openai.com" target="_blank" title="Visit OpenAI's website">OpenAI</a>.</p>
+
+    <!-- Image with Title -->
+    <p>Here is an image with a title tag:</p>
+    <img src="https://via.placeholder.com/150" alt="Sample Image" title="This is a placeholder image">
+
+    <!-- Print Statement -->
+    <p><strong>achyuth 192372257</strong></p>
+
+</body>
+</html>
