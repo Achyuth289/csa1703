@@ -1,5 +1,5 @@
 from sklearn.tree import DecisionTreeClassifier
-print("192372134-A.Dileep kumar")
+print("192372257 achyuth")
 # 1. Define the training data
 X = [[22, 0], [25, 1], [28, 1], [35, 1], [18, 0]]  # [Age, Has Job]
 y = [0, 1, 1, 1, 0]  # 1 = Loan Approved, 0 = Not Approved
